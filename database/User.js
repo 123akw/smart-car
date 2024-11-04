@@ -21,10 +21,10 @@ const User = dbConnection.define('user', {
         allowNull: false,
         unique: false
     },
-    email: {
+    telephone: {
         type: DataTypes.STRING,
-        allowNull: true,
-        unique: false
+        allowNull: false,
+        unique:true 
     },
 });
 export { User };

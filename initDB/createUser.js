@@ -17,12 +17,12 @@ async function establishTable() {
         console.log('database is not connected', e);
     }
     const User = sequelize.define('user', {
-        id:{
+        id: {
             type: DataTypes.BIGINT,
             allowNull: false,
             unique: true,
             autoIncrement: true,
-            primaryKey:true
+            primaryKey: true
         },
         username: {
             type: DataTypes.STRING,
@@ -34,9 +34,9 @@ async function establishTable() {
             allowNull: false,
             unique: false
         },
-        email: {
+        telephone: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
             unique: false
         },
     });
