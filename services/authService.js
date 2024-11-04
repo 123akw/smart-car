@@ -1,22 +1,25 @@
 //封装认证类
 import jwt from 'jsonwebtoken';
 import { Querier } from '../database/querier.js';
-import { User } from '../database/User.js';
+import { User } from '../database/moudel/User.js';
 
 class AuthService {
     constructor() {
-        this.userQuerier = new Querier(User());
+        this.userQuerier = new Querier(User);
     }
     async register(username = null, password = null, telephone = null) {
         try {
             if (username === null || password === null || telephone === null) {
                 throw new Error('The parameters are not out of specification');
             }
-            if (await this.userQuerier.selectWhere({ username: username, telephone: telephone }) === null) {
+            const resultArray = await this.userQuerier.selectWhere({ username: username, telephone: telephone });
+            //当返回进来的为数组且为空时，表明查询不到此账号
+            if (Array.isArray(resultArray) && resultArray.length === 0) {
                 const user = await this.userQuerier.insertQuery({ username, password, telephone });
                 console.log('The account has been created');
                 return user;
-            } else {
+                //当返回进来的为数组且为空时，表明存在此账号
+            } else if (Array.isArray(resultArray) && resultArray.length === 1) {
                 console.warn('The account has existed');
                 return null;
             }
@@ -30,13 +33,19 @@ class AuthService {
         if (!password || (!username && !telephone)) {
             throw new Error('The parameters are not out of specification');
         }
-        const whereArgsObject = this.parametersValidate(username, password, telephone);
-        const user = await this.userQuerier.selectWhere(whereArgsObject);
-        if (user === null) {
-            console.warn('The username or password is wrong');
+        try {
+            const whereArgsObject = await this.parametersValidate(username, password, telephone);
+            const user = await this.userQuerier.selectWhere(whereArgsObject);
+            if (Array.isArray(user) && user.length === 0) {
+                console.warn('The username or password is wrong');
+                return null;
+            } else if (Array.isArray(user) && user.length === 1) {
+                console.log('The login operation success');
+                return await this.setToken(user[0].get('id'), user[0].get('username'), user[0].get('telephone'));
+            }
+        } catch (e) {
+            console.error('The login operation failed\n', e);
             return null;
-        } else {
-            return await this.setToken(user.id, user.username, user.email);
         }
     }
     async setToken(userId, username, telephone) {
@@ -58,4 +67,4 @@ class AuthService {
     }
 }
 
-export {AuthService};
+export { AuthService };

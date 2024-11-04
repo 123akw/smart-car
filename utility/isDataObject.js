@@ -1,4 +1,4 @@
-export function isDataObject(obj) {
+function isDataObject(obj) {
     // 检查是否为非null的对象
     if (typeof obj !== 'object' || obj === null) {
         return false;
@@ -17,3 +17,5 @@ export function isDataObject(obj) {
     // 检查对象是否包含至少一个键
     return Object.keys(obj).length > 0;
 }
+
+export { isDataObject };

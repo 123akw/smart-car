@@ -1,4 +1,4 @@
-import { isDataObject } from '../src/utility/isDataObject.js';
+import { isDataObject } from '../utility/isDataObject.js';
 import { Sequelize } from 'sequelize';
 import readline from 'readline';
 import process from 'process';
@@ -33,12 +33,17 @@ class Querier {
         }
     }
     async selectWhere(whereArgsObject) {
-        if (isDataObject(whereArgsObject)) {
-            const selectArray = await this.moudelInstance.findAll({ where: whereArgsObject });
-            return selectArray;
-        } else {
-            console.error('The entered parameters is not valid');
-            return [];
+        try {
+            if (isDataObject(whereArgsObject)) {
+                const selectArray = await this.moudelInstance.findAll({ where: whereArgsObject });
+                return selectArray;
+            } else {
+                throw Error('The entered parameters is not valid');
+            }
+        } catch (e) {
+            console.error('An error occurred while filtering the data\n');
+            console.error('error mssage:', e);
+            throw e;
         }
     }
     async selectOrder(orderArgsArray) {
