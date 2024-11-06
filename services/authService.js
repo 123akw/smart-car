@@ -1,7 +1,7 @@
 //封装认证类
 import jwt from 'jsonwebtoken';
 import { Querier } from '../database/querier.js';
-import { User } from '../database/moudel/User.js';
+import { User } from '../database/moudel/user.js';
 
 class AuthService {
     constructor() {
@@ -15,13 +15,13 @@ class AuthService {
             const resultArray = await this.userQuerier.selectWhere({ username: username, telephone: telephone });
             //当返回进来的为数组且为空时，表明查询不到此账号
             if (Array.isArray(resultArray) && resultArray.length === 0) {
-                const user = await this.userQuerier.insertQuery({ username, password, telephone });
+                await this.userQuerier.insertQuery({ username, password, telephone });
                 console.log('The account has been created');
-                return user;
+                return 1;
                 //当返回进来的为数组且为空时，表明存在此账号
             } else if (Array.isArray(resultArray) && resultArray.length === 1) {
                 console.warn('The account has existed');
-                return null;
+                return -1;
             }
         } catch (e) {
             console.error('The register operation failed\n', e);
@@ -38,7 +38,7 @@ class AuthService {
             const user = await this.userQuerier.selectWhere(whereArgsObject);
             if (Array.isArray(user) && user.length === 0) {
                 console.warn('The username or password is wrong');
-                return null;
+                return -1;
             } else if (Array.isArray(user) && user.length === 1) {
                 console.log('The login operation success');
                 return await this.setToken(user[0].get('id'), user[0].get('username'), user[0].get('telephone'));

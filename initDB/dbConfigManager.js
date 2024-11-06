@@ -7,11 +7,7 @@ import { fileURLToPath } from 'url';
 
 // 定义数据库名称常量
 const dbName = 'parking_system_db';
-
-/**
- * 异步函数，用于创建和写入数据库配置文件
- */
-async function createAndWriteDbConfigFile() {
+async function inquiryProcess() {
     // 创建读取控制台输入的接口
     const inputStream = readline.createInterface({
         input: process.stdin,
@@ -88,10 +84,29 @@ async function createAndWriteDbConfigFile() {
     };
     // 从第一个问题开始提问
     await vaildInput(0);
-    // 同步写入配置文件
-    syncWriteConfig(answerList);
-    // 创建数据库连接实例并创建数据库
+    return answerList;
+}
+/**
+ * 异步函数，用于创建和写入数据库配置文件
+ */
+async function createAndWriteDbConfigFile() {
+    let answerList = [];
+    const readResult = syncReadConfig();
+    // 如果数据库配置文件不存在，则进行用户交互
+    if (readResult) {
+        //数据库配置文件存在，直接读取
+        console.log('\x1b[36m%s\x1b[0m', 'A dbConfig.json file is detected under the root file,\nand the interrogation phase is skipped');
+        answerList = [readResult.username, readResult.password, readResult.host, readResult.port];
+    } else {
+        console.log('\x1b[36m%s\x1b[0m', 'An inquiry process will be conducted');
+        //进行询问流程
+        answerList = await inquiryProcess();
+        // 同步写入配置文件
+        syncWriteConfig(answerList);
+        // 创建数据库连接实例并创建数据库
+    }
     await createDatabase(new Sequelize(`mysql://${answerList[0]}:${answerList[1]}@${answerList[2]}:${answerList[3]}`));
+
 }
 /**
  * 异步函数，用于创建数据库
@@ -101,9 +116,9 @@ async function createDatabase(connectInstance) {
     try {
         // 执行创建数据库的SQL语句
         await connectInstance.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\`;`);
-        console.log(`Database ${dbName} created successfully`);
+        console.log('\x1b[36m%s\x1b[0m', `Database ${dbName} created successfully`);
     } catch (e) {
-        console.log('unable create database: ', e);
+        console.error('unable create database: ', e);
 
     }
     finally {
@@ -133,10 +148,43 @@ function syncWriteConfig(answers) {
     try {
         // 同步写入配置文件
         fs.writeFileSync(filePath, dbConfigJson);
-        console.log('The configuration has been written to a json file, please check the dbConfig.json file in the root directory');
+        console.log('\x1b[36m%s\x1b[0m', 'The configuration has been written to a json file, please check the dbConfig.json file in the root directory');
     } catch (e) {
         console.error('Failed to write to file', e);
         throw e;
+    }
+}
+/**
+ * 同步读取数据库配置文件
+ * 
+ * 此函数尝试从文件系统中读取名为'dbConfig.json'的文件，并将其内容解析为JSON对象
+ * 如果文件存在且能成功解析，则返回解析后的配置对象；如果文件不存在或解析失败，则返回null
+ * 
+ * @returns {Object | null} 返回解析后的数据库配置对象，或者在失败时返回null
+ */
+function syncReadConfig() {
+    // 获取当前文件路径
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    // 定义配置文件路径
+    const filePath = path.join(__dirname, '../dbConfig.json');
+    try {
+        if (fs.existsSync(filePath)) {
+            const dbConfigJson = fs.readFileSync(filePath, 'utf-8');
+            try {
+                return JSON.parse(dbConfigJson);
+            } catch (parseError) {
+                console.error('Failed to parse dbConfig json\n', parseError);
+                return null;
+            }
+        }
+        else {
+            console.error('dbConfig json is not find');
+            return null;
+        }
+    } catch (e) {
+        console.error('An error occurred while reading the file \n', e);
+        return null;
     }
 }
 // 导出函数以供外部调用

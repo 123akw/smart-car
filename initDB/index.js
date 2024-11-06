@@ -1,4 +1,4 @@
-import { establishTable } from './createUser.js';
+import { establishTable } from './tableInitializer.js';
 (async () => {
     await establishTable();
 })();
