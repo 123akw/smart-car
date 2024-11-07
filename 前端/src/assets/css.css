@@ -1,0 +1,305 @@
+    body{
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: sans-serif;
+        -webkit-tap-highlight-color: raba(0, 0, 0, 0);
+    }.hreo{
+        min-height: 100vh;
+        width: 100%;
+        background: #1b1b1b;
+        background-size: cover;
+        position: absolute;
+    }
+    div{
+        box-sizing: border-box;
+    }
+    /* 第一层 */
+    .main-box{
+        width: 500px;
+        height: 600px;
+        position: relative;
+        margin: 5% auto;
+        background: #1b1b1b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+    /* 第二层 */
+    .form-box{
+        width: 500px;
+        height: 600px;
+        content: center;
+        border-radius: 5px;
+        position: relative;
+        background: #252525;
+        padding: 5px;
+        overflow: hidden;
+        z-index: 5;
+    }
+    /* 登录注册两边不同背景颜色 */
+    #after{
+        width: 50%;
+        height: 100%;
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        background: #2d2e30;
+        z-index: -1;
+        transition: 0.5s;
+    }
+    .button-box{
+        width: 220px;
+        margin: 30px auto 30px auto;
+        position: relative;
+        border-radius: 30px;
+        display: flex;
+        justify-content: space-around;
+        animation: animBTN 5s linear infinite;
+    }
+    /* 登录注册后面的光 */
+    @keyframes animBTN{
+        0%{
+            box-shadow: 0 60px 30px 9px rgba(3, 169, 244, 0, 0.3);
+        }
+        33%{
+            box-shadow: 0 60px 30px 9px rgba(244, 65, 165, 0.3);
+        }
+        66.9%{
+            box-shadow: 0 60px 30px 9px rgba(255, 235, 59, 0.3);
+        }
+        100%{
+            box-shadow: 0 60px 30px 9px rgba(3, 169, 244, 0.3);
+        }
+    }
+    /* 登录注册位置调试 */
+    .toggle-btn{
+        padding: 13px 15px 15px 100px;
+        cursor: pointer;
+        background: transparent;
+        border: 10px solid transparent;
+        margin-left: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(234, 234, 235);
+        outline: none;
+        position: relative;
+        border-radius: 50px;
+        transition: 0.5s;
+    }
+    /* 登录注册的按钮背景 */
+    #btn{
+        position: absolute;
+        top: 70px;
+        left: 70px;
+        width: 180px;
+        height: 10%;
+        background: linear-gradient(to left, #57AAB4, #57AAB4);
+        border-radius: 30px;
+        transition: 0.5s;
+    }
+    .check-box{
+        margin: 0 10px;
+        padding: 0;
+    }
+    #login{
+        left: 0px;
+    }
+    #register{
+        left: 500px;
+    }
+    /* 输入表单 */
+    .input-group{
+        width: 450px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        top: 190px;
+        position: absolute;
+        padding: 0 40px;
+        transition: 0.5s;
+        box-sizing: border-box;
+    }
+    /* 表单效果 */
+    .input-field{
+        width: 100%;
+        padding: 10px 5px;
+        margin: 10px 0;
+        border-top: 0;
+        border-left: 2px solid #57AAB4
+        border-right 0;
+        border-bottom: 2px solid #57AAB4;
+        outline: none;
+        background: transparent;
+        color: rgb(234,  234, 235);
+        font-size: 15px;
+        transition: 0.5s;
+    }
+    .input-fieeld:focus{
+        border-left: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        animation: animINP 5s linear infinite,animBTN 5s linear infinite;
+    }
+    /* 登录按钮背景 */
+    .submit-btn{
+        width: 80%;
+        padding: 10px 30px;
+        cursor: pointer;
+        display: block;
+        margin: 30px auto 0 auto;
+        background: linear-gradient(to right, #03e9f4, #57AAB4, #03e9f4);
+        border: 0;
+        outline: nane;
+        border-radius: 30px;
+        position: relative;
+        z-index: 5;
+        box-sizing: border-box;
+        color: #fff;
+        font-weight: bold;
+        font-size: 15px;
+        transition: 0.5s;
+    }
+    /* 登录按钮点击效果 */
+    .submit-btn:hover{
+        background: #57AAB4;
+        color: #fff;
+        border-radius: 30px;
+        box-shadow: 0 0 5px #57AAB4,
+            0 0 25px #57AAB4,
+            0 0 50px #57AAB4,
+            0 0 100px #03e9f4;
+    }
+    /* 社交图标位置 */
+    .icon-link{
+        display: flex;
+        background: transparent;
+        width: 50px;
+        height: 50px;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        border-radius: 50%;
+        margin: 0px 10px;
+        box-shadow: 6px 6px 10px -1px rgb(234, 234, 235, 0.1),
+            -6px -6px 10px -1px rgba(37, 37, 37, 0.7);
+        border: 1px solid rgba(234, 234, 235, 0.09);
+        transition: transform 0.5s;
+    }
+    .social-icons{
+        margin: 0 auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+    /* 图标变圆 */
+    .icon-link img{
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    .cont-icon{
+        color: #57AAB4;
+        font-size: 28px;
+        transition: transform 0.5s;
+    }
+    /* 图标点击发光 */
+    .icon-link:hover{
+        box-shadow: inset 4px 4px 6px -1px rgba(234, 234, 235, 0.2),
+            inset 4px 4px 6px -1px rgba(37, 37,37,0.7),
+            0 0 5px #57AAB4,
+            0 0 25px #57AAB4,
+            0 0 50px #57AAB4,
+            0 0 100px #03e9f4;
+        transform: translateY(2px);
+    }
+    .icon-link:hover .cont-icon{
+        transform: scale(0.95);
+    }
+    .icon-link:hover .fa-facebook{
+        color: #57AAB4;
+    }
+    .icon-link:hover .fa-instagram{
+        color: #57AAB4;
+    }
+    .icon-link:hover .fa-github{
+        color: #57AAB4;
+    }
+    @keyframes a{
+        0%{
+            background-position: 0%;
+        }
+        100%{
+            background-position: 400%;
+        }
+    }
+    /* 边框 */
+    .span{
+        margin: 20px 0;
+        color: rgb(234, 234, 235);
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* position: absolute; */
+        bottom: 88px;
+    }
+    .sp{
+        position: absolute;
+        transition: 0.5s;
+    }
+    .sp-t{
+        top: 0;
+        right: 0;
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(to left, transparent, #57AAB4, #57AAB4);
+        animation: anim2 2s linear infinite;
+        transform: translateY(-300%);
+        animation-delay: 0.8s;
+    }
+    .sp-r{
+        bottom: 0;
+        right: 0;
+        width: 2px;
+        height: 200px;
+        background: linear-gradient(to top, transparent, #57AAB4, #57AAB4);
+        animation: anim1 2s linear infinite;
+        animation-delay: 0s;
+    }
+    .sp-b{
+        right: 0;
+        bottom: 0;
+        width: 200px;
+        height: 2px;
+        background: linear-gradient(to left, transparent, #57AAB4, #57AAB4);
+        animation: anim2 2s linear infinite;
+    }
+    .sp-l{
+        left: 0;
+        top: 0;
+        width: 2px;
+        height: 200px;
+        background: linear-gradient(to top, transparent, #57AAB4, #57AAB4);
+        animation: anim1 2s linear infinite;
+        animation-delay: 1s;
+        transform: translateX(-300%);
+    }
+    /* 第二层流动灯 */
+    @keyframes anim1{
+        0%{
+            transform: translateY(300%);
+        }
+        100%{
+            transform: translateY(-300%);
+        }
+    }
+    @keyframes anim2{
+        0%{
+            transform: translateX(300%);
+        }
+        100%{
+            transform: translateX(-300%);
+        }
+    }
