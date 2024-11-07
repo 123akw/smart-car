@@ -91,6 +91,7 @@ const loadMapScript = () => {
 onMounted(() => {
   loadMapScript();
 });
+
 </script>
 
 <style scoped>

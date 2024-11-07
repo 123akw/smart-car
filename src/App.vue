@@ -1,26 +1,31 @@
 <script setup lang="ts" name="App">
 import { RouterView,RouterLink } from 'vue-router';
+import { ref } from 'vue';
+import LoginModal from '@/components/LoginModal.vue';
+const isLoginModalVisible = ref(false);
 </script>
 
 <template>
   <div class="content">
-    
     <div class="header">
       <img src="E:\smart car\src\assets\2.png" alt="">
       <h1>智能泊车系统</h1>
+      <button @click="isLoginModalVisible = true">登录</button>
     </div>
     <div class="wip">
-    <div class="nav-list">
+      <div class="nav-list">
         <RouterLink to="/payment" class="nav-item">自助缴费</RouterLink>
         <RouterLink to="/parking" class="nav-item">泊车点查询</RouterLink>
         <RouterLink to="/news" class="nav-item">新闻资讯</RouterLink>
         <RouterLink to="/service" class="nav-item">客服反馈</RouterLink>
+      </div>
+      <div class="map">
+        <RouterView v-if="$route.path !== '/login'"></RouterView>
+      </div>
     </div>
-    <div class="map">
-      <RouterView></RouterView>
-    </div>
+    <!-- 登录模态框 -->
+    <LoginModal :isVisible="isLoginModalVisible" @update:isVisible="isLoginModalVisible = $event" />
   </div>
-</div>
 </template>
 
 <style scoped>
@@ -32,7 +37,7 @@ import { RouterView,RouterLink } from 'vue-router';
 html {
   height: 100%;
   width: 100%;
-  background-image: url('./assets/3.jpg'); 
+  background-image: url('@/assets/3.jpg'); 
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
