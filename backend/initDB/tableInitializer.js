@@ -60,7 +60,7 @@ async function establishTable() {
             unique: false
         },
         //字符串类型，允许为空，不唯一
-        email:{
+        email: {
             type: DataTypes.STRING,
             allowNull: true,
             unique: false
@@ -107,7 +107,7 @@ async function establishTable() {
  */
 async function asyncModel(SQLModel) {
     try {
-        await SQLModel.sync();  
+        await SQLModel.sync();
         console.log('\x1b[36m%s\x1b[0m', `${SQLModel.getTableName()} model is syncing successful`);
     }
     catch (e) {

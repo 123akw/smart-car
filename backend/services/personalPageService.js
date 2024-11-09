@@ -14,17 +14,17 @@ class personalPageService {
         data.user_id = userId;
         try {
             await this.vehiclesModel.insertQuery(data);
-            console.log('\x1b[36m%s\x1b[0m','The add vehicle operation success');
-        }catch (e) {
+            console.log('\x1b[36m%s\x1b[0m', 'The add vehicle operation success');
+        } catch (e) {
             console.error('The add vehicle operation failed\n', e);
             return null;
         }
     }
-    async deleteVehicles(token,vehiclesId) {
+    async deleteVehicles(token, vehiclesId) {
         const payload = parseToken(token);
         const userId = payload.user_id;
         try {
-            const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId,vehicles_id:vehiclesId });
+            const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId, vehicles_id: vehiclesId });
             if (resultArray > 0) {
                 return 1;
             }
@@ -83,11 +83,11 @@ class personalPageService {
             return null;
         }
     }
-    async updataVehicles(token, updataData,vehiclesId) {
+    async updataVehicles(token, updataData, vehiclesId) {
         const payload = parseToken(token);
         const userId = payload.user_id;
         try {
-            const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId,vehicles_id:vehiclesId });
+            const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId, vehicles_id: vehiclesId });
             if (resultArray) {
                 return 1;
             }

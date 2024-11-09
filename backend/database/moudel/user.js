@@ -43,4 +43,4 @@ const User = dbConnection.define('user', {
         unique: false
     }
 });
-export default User ;
+export default User;

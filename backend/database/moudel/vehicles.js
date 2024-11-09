@@ -24,7 +24,7 @@ const Vehicles = dbConnection.define('vehicles', {
         unique: false
     },
     //字符串类型、不允许为空、不唯一
-    vehicle_number:{
+    vehicle_number: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: false

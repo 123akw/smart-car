@@ -8,4 +8,4 @@ function readAndParseJsonFileSync() {
         console.log('dbConfig json is not find \n', e);
     }
 }
-export {readAndParseJsonFileSync};
+export { readAndParseJsonFileSync };
