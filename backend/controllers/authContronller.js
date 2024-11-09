@@ -3,7 +3,7 @@ import { AuthService } from '../services/authService.js';
 const authInstance = new AuthService();
 async function register(req, res, next) {
     try {
-        const { username, telephone, password } = req.body;
+        const  { username, telephone, password } = req.body;
         const result = await authInstance.register(username, password, telephone);
         // -1:账号已经存在
         if (result === -1) {

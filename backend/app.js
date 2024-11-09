@@ -5,8 +5,8 @@ import bodyParser from 'body-parser';
 import loginRouter from './routers/login.js';
 import registerRouter from './routers/register.js';
 
-const app = express();
-app.use(bodyParser.json());
+const app =  express();
+app.use( bodyParser.json());
 
 
 //路由挂载

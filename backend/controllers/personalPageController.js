@@ -10,7 +10,7 @@ async function getProfile(req, res, next) {
         const authHeader = req.headers.Authorization;
         const token = authHeader && authHeader.split(' ')[1];
         const payload = parseToken(token);
-        if (payload) {
+        if (payload ) {
             const result = await personalPageInstance.getProfile(token);
             // 内部查询失败
             if (result === null) {

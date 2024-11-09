@@ -1,4 +1,4 @@
-function isDataObject(obj) {
+function  isDataObject(obj) {
     // 检查是否为非null的对象
     if (typeof obj !== 'object' || obj === null) {
         return false;

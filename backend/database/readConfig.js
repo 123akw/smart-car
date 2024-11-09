@@ -4,7 +4,7 @@ function readAndParseJsonFileSync() {
         const jsonData = fs.readFileSync('dbConfig.json', 'utf8');
         const jsonContent = JSON.parse(jsonData);
         return jsonContent;
-    } catch (e) {
+    } catch ( e) {
         console.log('dbConfig json is not find \n', e);
     }
 }

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import Querier from '../database/querier.js';
 import User from '../database/moudel/user.js';
 
-class AuthService {
+class  AuthService {
     constructor() {
         this.userQuerier = new Querier(User);
     }

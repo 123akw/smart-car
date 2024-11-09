@@ -3,7 +3,7 @@ import Querier from '../database/querier.js';
 import Vehicles from '../database/moudel/vehicles.js';
 import User from '../database/moudel/user.js';
 
-class personalPageService {
+class  personalPageService {
     constructor() {
         this.vehiclesModel = new Querier(Vehicles);
         this.UesrModel = new Querier(User);

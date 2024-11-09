@@ -13,7 +13,7 @@ import { createAndWriteDbConfigFile } from './dbConfigManager.js';
  */
 async function establishTable() {
     // 从数据库配置文件中读取并解析JSON数据
-    await createAndWriteDbConfigFile();
+    await  createAndWriteDbConfigFile();
     const { databaseName, username, password, host, } = readAndParseJsonFileSync();
     const sequelize = new Sequelize(databaseName, username, password, {
         host: host,

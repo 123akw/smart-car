@@ -5,7 +5,7 @@ import { dbConnection } from '../DBInstance.js';
 
 const User = dbConnection.define('user', {
     //大整数类型，不允许为空，且唯一，主键自增
-    user_id: {
+    user_id:  {
         type: DataTypes.BIGINT,
         allowNull: false,
         unique: true,

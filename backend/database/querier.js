@@ -11,7 +11,7 @@ class Querier {
      * Querier 类的构造函数
      * @param {Object} moudelInstance - 数据库模型实例
      */
-    constructor(moudelInstance) {
+     constructor(moudelInstance) {
         this.moudelInstance = moudelInstance;
     }
     /**

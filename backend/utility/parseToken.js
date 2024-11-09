@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-function parseToken(token) {
+function  parseToken(token) {
     try {
         const payload = jwt.verify(token, 'HELLOWORLD');
         return payload;

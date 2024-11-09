@@ -22,7 +22,7 @@ async function inquiryProcess() {
     ];
 
     // 存储用户回答的数组
-    const answerList = [];
+     const answerList = [];
     /**
     * 异步提问函数，返回用户的回答
     * @param {string} question - 提问的问题
