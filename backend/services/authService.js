@@ -1,7 +1,7 @@
 //封装认证类
 import jwt from 'jsonwebtoken';
-import { Querier } from '../database/querier.js';
-import { User } from '../database/moudel/user.js';
+import Querier from '../database/querier.js';
+import User from '../database/moudel/user.js';
 
 class AuthService {
     constructor() {
@@ -41,18 +41,16 @@ class AuthService {
                 return -1;
             } else if (Array.isArray(user) && user.length === 1) {
                 console.log('The login operation success');
-                return await this.setToken(user[0].get('id'), user[0].get('username'), user[0].get('telephone'));
+                return await this.setToken(user[0].get('user_id'));
             }
         } catch (e) {
             console.error('The login operation failed\n', e);
             return null;
         }
     }
-    async setToken(userId, username, telephone) {
+    async setToken(userId) {
         const payload = {
-            id: userId,
-            username: username,
-            telephone: telephone
+            user_id: userId,
         };
         const token = jwt.sign(payload, 'HELLOWORLD', { expiresIn: '1h' });
         return token;

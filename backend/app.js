@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 
 
 //路由挂载
-app.use('/', loginRouter);
-app.use('/', registerRouter);
+app.use('/api', loginRouter);
+app.use('/api', registerRouter);
 
 
 const PORT = process.env.PORT || 3000;

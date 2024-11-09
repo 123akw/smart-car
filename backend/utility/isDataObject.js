@@ -18,4 +18,4 @@ function isDataObject(obj) {
     return Object.keys(obj).length > 0;
 }
 
-export { isDataObject };
+export default isDataObject;

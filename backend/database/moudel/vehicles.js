@@ -31,4 +31,4 @@ const Vehicles = dbConnection.define('vehicles', {
     }
 });
 
-export {Vehicles};
+export default Vehicles;
