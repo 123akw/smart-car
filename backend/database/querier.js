@@ -113,11 +113,13 @@ class Querier {
      */
     async updataQuery(updataDataObject, whereArgsObject) {
         const [affectedRows] = await this.moudelInstance.update(updataDataObject, { where: whereArgsObject });
-        if (affectedRows === 0)
+        if (affectedRows === 0) {
             console.warn('No record was updated');
-        else
+            return false;
+        } else {
             console.log(`${affectedRows} pieces of data were successfully updated`);
-        return affectedRows;
+            return true;
+        }
     }
     /**
     * 删除记录
@@ -125,15 +127,13 @@ class Querier {
     * @returns {Promise<boolean>} 删除是否成功
     */
     async deleteQuery(whereArgsObject) {
-        if (isDataObject(whereArgsObject)) {
-            await this.moudelInstance.destroy({ where: whereArgsObject });
-            console.log('The data is deleted');
+        const deletRows = await this.moudelInstance.destroy({ where: whereArgsObject });
+        if (deletRows > 0) {
+            console.log(`There were ${deletRows} records deleted`);
             return true;
         }
-        else {
-            console.error('The entered parameters is not valid');
-            return false;
-        }
+        console.warn('No record was deleted');
+        return false;
     }
     /**
     * 清空表

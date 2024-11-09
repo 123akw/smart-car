@@ -20,6 +20,23 @@ class personalPageService {
             return null;
         }
     }
+    async deleteVehicles(token,vehiclesId) {
+        const payload = parseToken(token);
+        const userId = payload.user_id;
+        try {
+            const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId,vehicles_id:vehiclesId });
+            if (resultArray > 0) {
+                return 1;
+            }
+            else if (resultArray === 0) {
+                return 0;
+            }
+        }
+        catch (e) {
+            console.error('The delete operation failed\n', e);
+            return null;
+        }
+    }
     async getProfile(token) {
         const payload = parseToken(token);
         const userId = payload.user_id;
@@ -71,10 +88,10 @@ class personalPageService {
         const userId = payload.user_id;
         try {
             const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId,vehicles_id:vehiclesId });
-            if (resultArray > 0) {
+            if (resultArray) {
                 return 1;
             }
-            else if (resultArray === 0) {
+            else if (!resultArray) {
                 return 0;
             }
         }
