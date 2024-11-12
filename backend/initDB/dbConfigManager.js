@@ -136,7 +136,7 @@ function syncWriteConfig(answers) {
     const __dirname = path.dirname(__filename);
     // 定义配置文件路径
     const filePath = path.join(__dirname, '../dbConfig.json');
-    // 构建数据库配置JSON字符串
+    // 构建数据库配置JSON字符串\
     const dbConfigJson = JSON.stringify({
         databaseName: dbName,
         connectionString: `mysql://${answers[0]}:${answers[1]}@${answers[2]}:${answers[3]}`,
@@ -167,6 +167,8 @@ function syncReadConfig() {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
     // 定义配置文件路径
+    //C:\Users\15613\Desktop\code\A-parking-backend\backend\dbConfig.json
+
     const filePath = path.join(__dirname, '../dbConfig.json');
     try {
         if (fs.existsSync(filePath)) {

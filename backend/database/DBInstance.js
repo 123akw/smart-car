@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize';
 import { readAndParseJsonFileSync } from './readConfig.js';
 
 
-const { databaseName, username, password, host, } = readAndParseJsonFileSync();
+const { databaseName, username, password, host } = readAndParseJsonFileSync();
 
 
 const dbConnection = new Sequelize(databaseName, username, password, { host: host, dialect: 'mysql', logging: false });

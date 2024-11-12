@@ -8,23 +8,22 @@ class personalPageService {
         this.vehiclesModel = new Querier(Vehicles);
         this.UesrModel = new Querier(User);
     }
-    async addVehicle(token, data) {
-        const payload = parseToken(token);
+    async addVehicle(payload, data) {
         const userId = payload.user_id;
         data.user_id = userId;
         try {
             await this.vehiclesModel.insertQuery(data);
             console.log('\x1b[36m%s\x1b[0m', 'The add vehicle operation success');
+            return true;
         } catch (e) {
             console.error('The add vehicle operation failed\n', e);
-            return null;
+            return false;
         }
     }
-    async deleteVehicles(token, vehiclesId) {
-        const payload = parseToken(token);
+    async deleteVehicles(payload, vehiclesId) {
         const userId = payload.user_id;
         try {
-            const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId, vehicles_id: vehiclesId });
+            const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId, vehicle_id: vehiclesId });
             if (resultArray > 0) {
                 return 1;
             }
@@ -37,8 +36,7 @@ class personalPageService {
             return null;
         }
     }
-    async getProfile(token) {
-        const payload = parseToken(token);
+    async getProfile(payload) {
         const userId = payload.user_id;
         try {
             const user = await this.UesrModel.selectWhere({ user_id: userId });
@@ -52,23 +50,21 @@ class personalPageService {
             return null;
         }
     }
-    async getVehicles(token) {
-        const payload = parseToken(token);
+    async getVehicles(payload) {
         const userId = payload.user_id;
         try {
             const vehicles = await this.vehiclesModel.selectWhere({ user_id: userId });
             if (Array.isArray(vehicles) & vehicles.length === 0) {
                 console.error('Not found based on the user_id');
                 return -1;
-            } else if (Array.isArray(vehicles) && vehicles.length === 1)
-                return vehicles[0];
+            } else if (Array.isArray(vehicles) && vehicles.length > 0)
+                return vehicles;
         } catch (e) {
             console.error('The get vehicles operation failed\n', e);
             return null;
         }
     }
-    async updataProfile(token, updataData) {
-        const payload = parseToken(token);
+    async updataProfile(payload, updataData) {
         const userId = payload.user_id;
         try {
             const resultArray = await this.UesrModel.updataQuery(updataData, { user_id: userId });
@@ -83,8 +79,7 @@ class personalPageService {
             return null;
         }
     }
-    async updataVehicles(token, updataData, vehiclesId) {
-        const payload = parseToken(token);
+    async updataVehicles(payload, vehiclesId, updataData) {
         const userId = payload.user_id;
         try {
             const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId, vehicles_id: vehiclesId });

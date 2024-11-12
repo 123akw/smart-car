@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize';
 
-import { dbConnection } from '../DBInstance';
+import { dbConnection } from '../DBInstance.js';
 
 const Vehicles = dbConnection.define('vehicles', {
     //大整数类型、不允许为空、唯一、自增主键
@@ -11,11 +11,11 @@ const Vehicles = dbConnection.define('vehicles', {
         autoIncrement: true,
         primaryKey: true
     },
-    //大整型类型、不允许为空、唯一
+    //大整型类型、不允许为空、不唯一
     user_id: {
         type: DataTypes.BIGINT,
         allowNull: false,
-        unique: true,
+        unique: false,
     },
     //字符串类型、不允许为空、不唯一
     vehicle_type: {

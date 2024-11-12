@@ -77,7 +77,7 @@ async function establishTable() {
         user_id: {
             type: DataTypes.BIGINT,
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         vehicle_type: {
             type: DataTypes.STRING,
@@ -124,7 +124,7 @@ async function asyncModel(SQLModel) {
  */
 function readAndParseJsonFileSync() {
     try {
-        const jsonData = fs.readFileSync('dbConfig.json', 'utf8');
+        const jsonData = fs.readFileSync('./backend/dbConfig.json', 'utf8');
         const jsonContent = JSON.parse(jsonData);
         return jsonContent;
     } catch (e) {

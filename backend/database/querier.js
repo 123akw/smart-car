@@ -117,7 +117,7 @@ class Querier {
             console.warn('No record was updated');
             return false;
         } else {
-            console.log(`${affectedRows} pieces of data were successfully updated`);
+            console.log('\x1b[36m%s\x1b[0m',`${affectedRows} pieces of data were successfully updated`);
             return true;
         }
     }
@@ -129,7 +129,7 @@ class Querier {
     async deleteQuery(whereArgsObject) {
         const deletRows = await this.moudelInstance.destroy({ where: whereArgsObject });
         if (deletRows > 0) {
-            console.log(`There were ${deletRows} records deleted`);
+            console.log('\x1b[36m%s\x1b[0m',`There were ${deletRows} records deleted`);
             return true;
         }
         console.warn('No record was deleted');
@@ -150,7 +150,7 @@ class Querier {
             if (answer === 'y') {
                 try {
                     await this.moudelInstance.destroy({ truncate: true });
-                    console.log('The moudel has deleted');
+                    console.log('\x1b[36m%s\x1b[0m','The moudel has deleted');
                 } catch (e) {
                     console.error('The operation failed\n', e);
                 }
