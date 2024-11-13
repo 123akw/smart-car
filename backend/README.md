@@ -208,8 +208,8 @@ Authorization  xxxxxxxxxxxxxxx
 
 ```json
 {
-    ”code“: -1,
-    ”message“: "Internal Server Error"
+    "code": -1,
+   	"message": "Internal Server Error"
 }
 ```
 
@@ -256,8 +256,8 @@ Authorization  xxxxxxxxxxxxxxx
 
   ```json
   {
-      ”code“: -1,
-      ”message“: "Internal Server Error"
+      "code": -1,
+     	"message": "Internal Server Error"
   }
   ```
 
@@ -310,8 +310,8 @@ Authorization  xxxxxxxxxxxxxxx
 
   ```json
   {
-      ”code“: -1,
-      ”message“: "Internal Server Error"
+      "code": -1,
+     	"message": "Internal Server Error"
   }
   ```
 
@@ -377,8 +377,8 @@ Authorization  xxxxxxxxxxxxxxx
 
   ```json
   {
-      ”code“: -1,
-      ”message“: "Internal Server Error"
+      "code": -1,
+     	"message": "Internal Server Error"
   }
   ```
 
@@ -386,7 +386,7 @@ Authorization  xxxxxxxxxxxxxxx
 
 ### 更新个人信息
 
-- **HTTP方法：GET请求**
+- **HTTP方法：POST请求**
 
 - **URL：/personalPage/updataProfile**
 
@@ -439,9 +439,67 @@ Authorization  xxxxxxxxxxxxxxx
 
   ```json
   {
-      ”code“: -1,
-      ”message“: "Internal Server Error"
+      "code": -1,
+     	"message": "Internal Server Error"
   }
   ```
 
   
+  
+  ### 更新车辆信息
+  
+  - **HTTP方法：POST请求**
+  
+  - **URL：/personalPage/updataVehicle**
+  
+  - **请求参数：**
+  
+  | 参数名       | 类型   | 是否必填 | 描述                 |
+  | ------------ | ------ | -------- | -------------------- |
+  | vehicleId    | 大整数 | 是       | 指定要更新车辆id     |
+  | updataObject | 对象   | 是       | 指定该车辆要修改的项 |
+  
+  ***根据Vehicles库表进行对象属性填充***
+  
+  | 键名           | 类型   | 基本属性                                                   | 描述               |
+  | -------------- | ------ | ---------------------------------------------------------- | ------------------ |
+  | vehicle_id     | 大整数 | 大整数类型、不允许为空、唯一、自增主键（禁止手动修改主键） | 标识该车唯一id     |
+  | user_id        | 大整数 | 大整型类型、不允许为空、不唯一（不建议修改此字段）         | 标识该车属于哪个id |
+  | vehicle_type   | 字符串 | 字符串类型、不允许为空、不唯一                             | 标识车辆类型       |
+  | vehicle_number | 字符串 | 字符串类型、不允许为空、不唯一                             | 标识车牌号码       |
+
+- **请求体**
+
+```json
+{
+    "vehicleId": 2,
+    "updataData": {
+        "vehicle_type": "问界M9",
+        "vehicle_number": "1919810"
+    }
+}
+```
+
+**响应格式**
+
+- 500：表明服务器发生错误，更新车辆信息操作已取消
+- 200：完成车辆信息的更新
+
+- 完成车辆信息的更新时
+
+```json
+{
+    "code": 1,
+    "message": "success"
+}
+```
+
+- 服务器内部更新失败时
+
+```json
+{
+    "code": -1,
+   	"message": "Internal Server Error"
+}
+```
+

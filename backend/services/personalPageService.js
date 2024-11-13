@@ -82,7 +82,7 @@ class personalPageService {
     async updataVehicles(payload, vehiclesId, updataData) {
         const userId = payload.user_id;
         try {
-            const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId, vehicles_id: vehiclesId });
+            const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId, vehicle_id: vehiclesId });
             if (resultArray) {
                 return 1;
             }
