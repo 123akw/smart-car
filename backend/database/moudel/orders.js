@@ -2,33 +2,44 @@ import {DataTypes} from 'sequelize';
 
 import {dbConnection} from '../DBInstance.js';
 
-const Vehicles = dbConnection.define('vehicles', {
-    //大整数类型、不允许为空、唯一、自增主键
-    vehicle_id: {
+const Orders = dbConnection.define('orders', {
+    order_id:{
         type: DataTypes.BIGINT,
         allowNull: false,
         unique: true,
         autoIncrement: true,
         primaryKey: true
     },
-    //大整型类型、不允许为空、不唯一
-    user_id: {
+    user_id:{
         type: DataTypes.BIGINT,
         allowNull: false,
         unique: false,
     },
-    //字符串类型、不允许为空、不唯一
-    vehicle_type: {
+    vehicle_number: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: false
     },
-    //字符串类型、不允许为空、不唯一
-    vehicle_number: {
+    park_time: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: false
+    },
+    park_money: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: false
+    },
+    park_place: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: false
+    },
+    pay_state: {
+        type: DataTypes.BOOLEAN,
         allowNull: false,
         unique: false
     }
 });
 
-export default Vehicles;
+export default Orders;

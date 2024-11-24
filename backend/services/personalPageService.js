@@ -1,4 +1,3 @@
-import parseToken from '../utility/parseToken.js';
 import Querier from '../database/querier.js';
 import Vehicles from '../database/moudel/vehicles.js';
 import User from '../database/moudel/user.js';
@@ -9,8 +8,7 @@ class personalPageService {
         this.UesrModel = new Querier(User);
     }
     async addVehicle(payload, data) {
-        const userId = payload.user_id;
-        data.user_id = userId;
+        data.user_id = payload.user_id;
         try {
             await this.vehiclesModel.insertQuery(data);
             console.log('\x1b[36m%s\x1b[0m', 'The add vehicle operation success');
@@ -24,10 +22,10 @@ class personalPageService {
         const userId = payload.user_id;
         try {
             const resultArray = await this.vehiclesModel.deleteQuery({ user_id: userId, vehicle_id: vehiclesId });
-            if (resultArray > 0) {
+            if (resultArray) {
                 return 1;
             }
-            else if (resultArray === 0) {
+            else if (!resultArray) {
                 return 0;
             }
         }
@@ -40,7 +38,7 @@ class personalPageService {
         const userId = payload.user_id;
         try {
             const user = await this.UesrModel.selectWhere({ user_id: userId });
-            if (Array.isArray(user) & user.length === 0) {
+            if (Array.isArray(user) && user.length === 0) {
                 console.error('Not found based on the user_id');
                 return -1;
             } else if (Array.isArray(user) && user.length === 1)
@@ -54,7 +52,7 @@ class personalPageService {
         const userId = payload.user_id;
         try {
             const vehicles = await this.vehiclesModel.selectWhere({ user_id: userId });
-            if (Array.isArray(vehicles) & vehicles.length === 0) {
+            if (Array.isArray(vehicles) && vehicles.length === 0) {
                 console.error('Not found based on the user_id');
                 return -1;
             } else if (Array.isArray(vehicles) && vehicles.length > 0)
@@ -64,25 +62,25 @@ class personalPageService {
             return null;
         }
     }
-    async updataProfile(payload, updataData) {
+    async updateProfile(payload, updateData) {
         const userId = payload.user_id;
         try {
-            const resultArray = await this.UesrModel.updataQuery(updataData, { user_id: userId });
-            if (resultArray > 0) {
+            const resultArray = await this.UesrModel.updateQuery(updateData, { user_id: userId });
+            if (resultArray) {
                 return 1;
             }
-            else if (resultArray === 0) {
+            else if (!resultArray) {
                 return 0;
             }
         } catch (e) {
-            console.error('The updata operation failed\n', e);
+            console.error('The update operation failed\n', e);
             return null;
         }
     }
-    async updataVehicles(payload, vehiclesId, updataData) {
+    async updateVehicles(payload, vehiclesId, updateData) {
         const userId = payload.user_id;
         try {
-            const resultArray = await this.vehiclesModel.updataQuery(updataData, { user_id: userId, vehicle_id: vehiclesId });
+            const resultArray = await this.vehiclesModel.updateQuery(updateData, { user_id: userId, vehicle_id: vehiclesId });
             if (resultArray) {
                 return 1;
             }
@@ -91,7 +89,7 @@ class personalPageService {
             }
         }
         catch (e) {
-            console.error('The updata operation failed\n', e);
+            console.error('The update operation failed\n', e);
             return null;
         }
     }

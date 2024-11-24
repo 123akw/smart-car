@@ -7,13 +7,13 @@ async function addVehicle(req, res, next) {
     try {
         const payload = req.payload;
         const result = await personalPageInstance.addVehicle(payload, req.body);
-        if (result === false) {
+        if (!result) {
             return res.status(500).json({
                 code: -1,
                 message: 'Internal Server Error'
             });
         }
-        else if (result === true)
+        else if (result)
             return res.status(201).json({
                 code: 1,
                 message: 'success'
@@ -96,16 +96,16 @@ async function getVehicles(req, res, next) {
         }
         // 查询成功并返回数据
 
-        const vehiclesAarry = [];
+        const vehiclesArray = [];
         for (let vehicleMessages of result) {
             // eslint-disable-next-line no-unused-vars
             const { user_id, createdAt, ...safeObject } = vehicleMessages.dataValues;
-            vehiclesAarry.push(safeObject);
+            vehiclesArray.push(safeObject);
         }
 
         return res.status(200).json({
             code: 1,
-            data: vehiclesAarry
+            data: vehiclesArray
         });
     }
     catch (e) {
@@ -114,11 +114,11 @@ async function getVehicles(req, res, next) {
 }
 
 //POST方法
-async function updataProfile(req, res, next) {
+async function updateProfile(req, res, next) {
     try {
         const payload = req.payload;
-        const { updataData } = req.body;
-        const result = await personalPageInstance.updataProfile(payload, updataData);
+        const { updateData } = req.body;
+        const result = await personalPageInstance.updateProfile(payload, updateData);
         if (result === null) {
             return res.status(500).json({
                 code: -1,
@@ -135,11 +135,11 @@ async function updataProfile(req, res, next) {
     }
 }
 //POST方法
-async function updataVehicle(req, res, next) {
+async function updateVehicle(req, res, next) {
     try {
         const payload = req.payload;
-        const { vehicleId, updataData } = req.body;
-        const result = await personalPageInstance.updataVehicles(payload, vehicleId, updataData);
+        const { vehicleId, updateData: updateData } = req.body;
+        const result = await personalPageInstance.updateVehicles(payload, vehicleId, updateData);
         if (result === null) {
             return res.status(500).json({
                 code: -1,
@@ -157,4 +157,4 @@ async function updataVehicle(req, res, next) {
 
 }
 
-export { addVehicle, deleteVehicle, getProfile, getVehicles, updataProfile, updataVehicle };
+export { addVehicle, deleteVehicle, getProfile, getVehicles, updateProfile, updateVehicle };

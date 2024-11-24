@@ -1,7 +1,7 @@
 import isDataObject from '../utility/isDataObject.js';
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 import readline from 'readline';
-import process from 'process';
+import process from 'node:process';
 
 /**
  * 定义一个用于数据库操作的查询类
@@ -65,8 +65,7 @@ class Querier {
     async selectWhere(whereArgsObject) {
         try {
             if (isDataObject(whereArgsObject)) {
-                const selectArray = await this.moudelInstance.findAll({ where: whereArgsObject });
-                return selectArray;
+                return await this.moudelInstance.findAll({where: whereArgsObject});
             } else {
                 throw Error('The entered parameters is not valid');
             }
@@ -83,8 +82,7 @@ class Querier {
     */
     async selectOrder(orderArgsArray) {
         if (isDataObject(orderArgsArray)) {
-            const selectArray = await this.moudelInstance.findAll({ order: orderArgsArray });
-            return selectArray;
+            return await this.moudelInstance.findAll({order: orderArgsArray});
         } else {
             console.error('The entered parameters is not valid');
             return [];
@@ -98,8 +96,7 @@ class Querier {
      */
     async selectLimAndOff(limit, offset) {
         try {
-            const selectArray = await this.moudelInstance.findAll({ limit: limit, offset: offset });
-            return selectArray;
+            return await this.moudelInstance.findAll({limit: limit, offset: offset});
         } catch (e) {
             console.error('An error occurred while filtering the data\n', e);
             throw e;
@@ -107,12 +104,12 @@ class Querier {
     }
     /**
      * 更新记录
-     * @param {Object} updataDataObject - 要更新的数据对象
+     * @param {Object} updateDataObject - 要更新的数据对象
      * @param {Object} whereArgsObject - 更新条件对象
      * @returns {Promise<boolean>} 更新是否成功
      */
-    async updataQuery(updataDataObject, whereArgsObject) {
-        const [affectedRows] = await this.moudelInstance.update(updataDataObject, { where: whereArgsObject });
+    async updateQuery(updateDataObject, whereArgsObject) {
+        const [affectedRows] = await this.moudelInstance.update(updateDataObject, { where: whereArgsObject });
         if (affectedRows === 0) {
             console.warn('No record was updated');
             return false;
@@ -150,7 +147,7 @@ class Querier {
             if (answer === 'y') {
                 try {
                     await this.moudelInstance.destroy({ truncate: true });
-                    console.log('\x1b[36m%s\x1b[0m','The moudel has deleted');
+                    console.log('\x1b[36m%s\x1b[0m','The model has deleted');
                 } catch (e) {
                     console.error('The operation failed\n', e);
                 }

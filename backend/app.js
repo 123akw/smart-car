@@ -1,11 +1,11 @@
 import express from 'express';
-import process from 'process';
+import process from 'node:process';
 
 import bodyParser from 'body-parser';
 import loginRouter from './routers/login.js';
 import registerRouter from './routers/register.js';
 import personalPageRouter from './routers/personalPage.js';
-
+import orderSystemRouter from './routers/orderSystemRouter.js';
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/user', loginRouter);
 app.use('/api/user', registerRouter);
 app.use('/api/personalPage', personalPageRouter);
-
+app.use('/api/orderSystem',orderSystemRouter);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

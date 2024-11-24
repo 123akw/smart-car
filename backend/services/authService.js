@@ -52,8 +52,7 @@ class AuthService {
         const payload = {
             user_id: userId,
         };
-        const token = jwt.sign(payload, 'HELLOWORLD', { expiresIn: '2h' });
-        return token;
+        return jwt.sign(payload, 'HELLOWORLD', {expiresIn: '2h'});
     }
     async parametersValidate(username, password, telephone) {
         if (username !== null && telephone == null) {

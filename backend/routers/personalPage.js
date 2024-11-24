@@ -1,15 +1,15 @@
-import { addVehicle, deleteVehicle, getProfile, getVehicles, updataProfile, updataVehicle } from '../controllers/personalPageController.js';
-import tokenMiddenware from '../utility/tokenMiddenware.js';
+import { addVehicle, deleteVehicle, getProfile, getVehicles, updateProfile, updateVehicle } from '../controllers/personalPageController.js';
+import tokenMiddleware from '../utility/tokenMiddleware.js';
 import express from 'express';
 
 const personalPageRouter = express.Router();
 
 
-personalPageRouter.post('/addVehicle', tokenMiddenware, addVehicle);
-personalPageRouter.post('/deleteVehicle', tokenMiddenware, deleteVehicle);
-personalPageRouter.get('/getProfile', tokenMiddenware, getProfile);
-personalPageRouter.get('/getVehicles', tokenMiddenware, getVehicles);
-personalPageRouter.post('/updataProfile', tokenMiddenware, updataProfile);
-personalPageRouter.post('/updataVehicle', tokenMiddenware, updataVehicle);
+personalPageRouter.post('/addVehicle', tokenMiddleware, addVehicle);
+personalPageRouter.post('/deleteVehicle', tokenMiddleware, deleteVehicle);
+personalPageRouter.get('/getProfile', tokenMiddleware, getProfile);
+personalPageRouter.get('/getVehicles', tokenMiddleware, getVehicles);
+personalPageRouter.post('/updateProfile', tokenMiddleware, updateProfile);
+personalPageRouter.post('/updateVehicle', tokenMiddleware, updateVehicle);
 
 export default personalPageRouter;

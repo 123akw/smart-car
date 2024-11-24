@@ -1,9 +1,9 @@
 import fs from 'fs';
-function readAndParseJsonFileSync() {
+
+function readAndParseJsonFileSync(path) {
     try {
-        const jsonData = fs.readFileSync('./backend/dbConfig.json', 'utf8');
-        const jsonContent = JSON.parse(jsonData);
-        return jsonContent;
+        const jsonData = fs.readFileSync(path, 'utf8');
+        return JSON.parse(jsonData);
     } catch (e) {
         console.error('error:dbConfig json is not find \n', e);
     }
